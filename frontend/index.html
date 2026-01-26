@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ollama Test Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="brand">
+                <span>🚀</span> TestGen AI
+            </div>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                Powered by Ollama <br> (Llama 3.2)
+            </p>
+        </aside>
+        
+        <main class="chat-area">
+            <div class="messages" id="messages">
+                <div class="message system">
+                    Hello! I'm your local AI QA Assistant. Describe a feature, and I'll generate test cases for it.
+                </div>
+            </div>
+            
+            <div class="input-area">
+                <textarea id="promptInput" class="input-field" placeholder="Describe the feature to test... (e.g. 'Login page with 2FA')" rows="1"></textarea>
+                <button id="sendBtn" class="send-btn">Generate</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
