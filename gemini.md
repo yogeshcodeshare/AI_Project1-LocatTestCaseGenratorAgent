@@ -33,10 +33,14 @@
 2.  **No Hallucinations**: If input is vague, ask for clarification (in the UI) rather than guessing logic.
 3.  **Template-Based**: The prompt sent to Ollama must use the defined "Template" (to be provided by user) to ensure consistency.
 
-## Architectural Invariants
-1.  **Frontend-Backend Separation**:
-    - **Frontend**: Lightweight HTML/CSS/JS (Premium UI).
-    - **Backend**: Python (FastAPI/Flask) to handle Ollama communication.
-2.  **Local-First**: All LLM processing happens on `localhost` via Ollama. No external API keys required.
-3.  **Model**: Default to `llama3.2`.
+## Maintenance Log
+| Date | Event | Action | Status |
+| :--- | :--- | :--- | :--- |
+| 2026-01-26 | Project Initialization | Scaffolding `backend/`, `frontend/` | ✅ Complete |
+| 2026-01-26 | Model Handshake | Pulled `llama3.2` model | ✅ Complete |
+| 2026-01-26 | Backend Implementation | Created FastAPI server + Parsers | ✅ Complete |
+| 2026-01-26 | Frontend Implementation | Built Chat UI (Dark Mode) | ✅ Complete |
+| 2026-01-26 | Integration Test | Verified e2e flow (Login w/ 2FA) | ✅ Complete |
+| 2026-01-26 | Deployment | Pushed to GitHub | ✅ Complete |
+
 
