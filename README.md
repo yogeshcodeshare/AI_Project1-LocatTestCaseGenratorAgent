@@ -1,36 +1,73 @@
 # 🚀 Local LLM Test Case Generator
 
-A privacy-first, AI-powered tool that generates detailed software test cases from natural language descriptions. Built with **Ollama** (Llama 3.2), **FastAPI**, and a premium **Vanilla JS Frontend**.
+A professional, privacy-first AI agent designed for QA engineers to generate, refine, and deduplicate high-quality test cases using local LLMs. Powered by **Ollama (Llama 3.2 & 3.2-Vision)** and **FastAPI**.
 
 ![Status](https://img.shields.io/badge/Status-Active-success)
-![LLM](https://img.shields.io/badge/LLM-Llama3.2-blue)
-![Architecture](https://img.shields.io/badge/Architecture-3--Layer%20BLAST-purple)
+![LLM](https://img.shields.io/badge/LLM-Llama3.2%20%2F%20Vision-blue)
+![Architecture](https://img.shields.io/badge/Architecture-Agentic%20QA-purple)
+![Privacy](https://img.shields.io/badge/Data%20Privacy-100%25%20Local-green)
 
-## ✨ Features
+---
 
--   **🔒 Privacy First**: Runs 100% locally using Ollama. No API keys, no data leaves your machine.
--   **🛡️ Anti-Hallucination Rules**: Integrated strict verification logic to ensure test cases are grounded in facts.
--   **🧠 Self-Healing Logic**: Uses robust JSON parsing and Pydantic validation to ensure the LLM returns structured data every time.
--   **🎨 Premium UI**: A clean, "Glassmorphism" inspired dark mode interface with real-time verification status.
--   **⚡ Fast & Lightweight**: Backend powered by FastAPI, Frontend is pure HTML/CSS/JS (no heavy npm build steps).
+## 🛠️ Key Features
 
-## 🏗️ Architecture
+### 1. 🧠 Intelligent Test Generation
+- **Jira-Aligned**: Generates detailed test scenarios directly from Jira task IDs and descriptions.
+- **Multi-Context Processing**: Extract requirements from **PDFs, Word Docs (.docx), and Text files** automatically.
+- **Anti-Hallucination**: High-precision grounding rules ensure test cases strictly follow your project context.
 
-This project follows the **BLAST Protocol** and **A.N.T. 3-Layer Architecture**:
+### 2. 📸 AI Vision Analysis (OCR & UI Recognition)
+- **Screenshot context**: Attach UI screenshots or design mockups.
+- **Live Vision Agent**: Uses `llama3.2-vision` to analyze UI elements, form fields, and workflows from your images to inform test case generation.
 
-1.  **Layer 1 (Architecture)**: Defined SOPS in `architecture/` to govern logic.
-2.  **Layer 2 (Navigation)**: `backend/server.py` routes data and handles API requests.
-3.  **Layer 3 (Tools)**: `backend/services/llm_service.py` executes the deterministic logic.
+### 3. 🧩 Semantic Deduplication
+- **Duplicate Detection**: Uses AI to scan your existing test case library and identify redundant scenarios during generation.
+- **Side-by-Side Comparison**: Review duplicates with a similarity score and choose to Merge, Delete, or Keep.
+
+### 4. 🎨 Premium & Elastic UI
+- **Glassmorphism Design**: Sleek Dark Mode interface with interactive activity logs.
+- **Collapsible Layout**: Flexible sidebars (Project & Refinement) allow you to expand the workspace for better visualization of complex test tables.
+- **Auto-Expanding Input**: Natural writing experience with textareas that grow as you type.
+
+---
+
+## 📊 Project Workflow
+
+```mermaid
+graph TD
+    A[User Input / Jira Task] --> B{Context Hub}
+    B -->|Context Documents| C[Text/PDF/Docx Parser]
+    B -->|UI Screenshots| D[Llama 3.2 Vision Engine]
+    C --> E[Grounding & Facts Extraction]
+    D --> E
+    E --> F[Llama 3.2 Core Generator]
+    F --> G[JSON Parser & Validator]
+    G --> H[Semantic Deduplication Engine]
+    H --> I[Premium UI Results]
+    I --> J[Refinement Loop / Export]
+```
+
+---
+
+## 🏗️ Technical Stack
+
+-   **Backend**: Python, FastAPI, Uvicorn, Pydantic (Data Validation).
+-   **AI Engine**: Ollama (Llama 3.2, Llama 3.2-Vision).
+-   **Document Processing**: PyMuPDF (PDF), python-docx (Word).
+-   **Frontend**: Vanilla JavaScript (ES6+), Modern CSS (Flex/Grid), HTML5.
+
+---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 
--   **Python 3.8+**
+-   **Python 3.9+**
 -   **[Ollama](https://ollama.com/)** installed and running.
--   Pull the required model:
+-   Pull the required models:
     ```bash
     ollama pull llama3.2
+    ollama pull llama3.2-vision
     ```
 
 ### Installation
@@ -44,7 +81,7 @@ This project follows the **BLAST Protocol** and **A.N.T. 3-Layer Architecture**:
 2.  **Set up Virtual Environment**:
     ```bash
     python3 -m venv venv
-    source venv/bin/activate  # On Windows: venv\Scripts\activate
+    source venv/bin/activate
     ```
 
 3.  **Install Dependencies**:
@@ -52,51 +89,39 @@ This project follows the **BLAST Protocol** and **A.N.T. 3-Layer Architecture**:
     pip install -r requirements.txt
     ```
 
-## 🏃‍♂️ Usage
+### 🏃‍♂️ Running the Hub
 
-### Quick Start (Recommended)
-You can start both the backend and frontend with a single command:
+The easiest way to start is using the provided script:
 ```bash
 ./start.sh
 ```
+This launches:
+-   **Backend**: `http://localhost:8000`
+-   **Frontend**: `http://localhost:8080`
 
-### Manual Start
-#### 1. Start the Backend
-The backend runs on port `8000`.
-```bash
-./venv/bin/uvicorn backend.server:app --host 0.0.0.0 --port 8000 --reload
-```
-
-#### 2. Start the Frontend
-Serve the frontend with any static file server:
-```bash
-cd frontend
-python3 -m http.server 8080
-```
-
-### 3. Generate Test Cases
--   Open your browser to `http://localhost:8080`.
--   Type a feature description.
--   Click **Generate**.
--   The AI will now show **Verified Facts** and **Missing Information** alongside your test cases!
+---
 
 ## 📂 Project Structure
 
-```
-├── architecture/        # Technical SOPs and Logic definitions
-├── backend/             # FastAPI Server & LLM Logic
-│   ├── models.py        # Pydantic Schemas
-│   ├── server.py        # API Entrypoint
-│   └── services/        # Business Logic (Ollama integration)
-├── frontend/            # Static Web UI (HTML/CSS/JS)
-├── tools/               # Utility scripts (e.g., verification)
-├── BLAST.md             # Master System Prompt & Progress Log
+```text
+├── backend/
+│   ├── models.py        # Pydantic Schemas (Coercion & Validation)
+│   ├── server.py        # FastAPI Endpoints
+│   └── services/        # LLM Logic & Vision Processing
+├── frontend/
+│   ├── index.html       # Collapsible Sidebar UI
+│   ├── app.js           # Frontend Logic & File Streams
+│   └── style.css        # Premium Aesthetics (Glassmorphism)
+├── architecture/        # Project logic definitions
+├── .gitignore           # Ignored logs, venv, and local storage
 └── requirements.txt     # Python dependencies
 ```
 
-## 🤝 Contributing
+---
 
-This project is a demonstration of **Agentic Coding** with the BLAST protocol. Feel free to fork and enhance!
+## 🤝 Contributing & Privacy
+
+This project is built for **100% Data Sovereignty**. All processing happens on your local hardware. No data, files, or images are ever uploaded to an external server.
 
 ---
-*Generated by Antigravity Agent*
+*Developed by Yogesh Mohite & Antigravity AI*
