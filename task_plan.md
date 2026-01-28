@@ -15,18 +15,20 @@
     - [ ] Create `style.css` (Premium aesthetics: Dark mode, glassmorphism).
     - [ ] Create `app.js` to handle chat state and API calls.
 - [ ] **Phase 4: Integration & Polish**
-    - [ ] Connect Frontend to Backend.
-    - [ ] Validate JSON parsing and error handling.
-    - [ ] Optimize prompts (Integrate User's Template).
-    - [ ] Final UI Polish (Animations, Responsive layout).
+    - [x] Connect Frontend to Backend.
+    - [x] Validate JSON parsing and error handling.
+    - [x] Optimize prompts (Jira Task & PIM Context).
+    - [x] Implement Table Format & Excel (CSV) Export.
+    - [x] Final UI Polish (Premium Glassmorphism, Priority Badges).
 
 ## Goals
-- Build a local, privacy-first Test Case Generator.
-- Use `llama3.2` via Ollama.
-- Deliver a premium "Chat UI" experience in the browser.
+- Build a local, privacy-first Jira Test Case Generator for PIM software.
+- Use `llama3.2` via Ollama with strict Anti-Hallucination rules.
+- Deliver a premium, table-based experience with Excel export capabilities.
 
 ## Checklists
-- [ ] **Ollama Running**: Verify `llama3.2` is pulled and running.
-- [ ] **Backend Healthy**: `/health` endpoint returns 200.
-- [ ] **UI Functional**: Can send text and receive structured test cases.
+- [x] **Ollama Running**: Verify `llama3.2` is pulled and running.
+- [x] **Jira Support**: Can parse Jira Task IDs and generate "PIM-XXXX" titles.
+- [x] **Table UI**: Renders professional tables with prioritized badges.
+- [x] **Export Ready**: Verified CSV export for test management tools.
 

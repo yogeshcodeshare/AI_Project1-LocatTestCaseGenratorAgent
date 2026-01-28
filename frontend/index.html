@@ -1,39 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ollama Test Generator</title>
+    <title>Test case Generator with Local LLM</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    <div class="container">
-        <aside class="sidebar">
+    <div class="app-wrapper">
+        <aside class="sidebar projects-sidebar">
             <div class="brand">
                 <span>🚀</span> TestGen AI
             </div>
-            <p style="color: var(--text-secondary); font-size: 0.9rem;">
-                Powered by Ollama <br> (Llama 3.2)
-            </p>
-        </aside>
-        
-        <main class="chat-area">
-            <div class="messages" id="messages">
-                <div class="message system">
-                    Hello! I'm your local AI QA Assistant. Describe a feature, and I'll generate test cases for it.
+            <button id="leftCollapseBtn" class="collapse-btn" title="Toggle Sidebar">◀</button>
+
+            <div class="project-management">
+                <label for="projectSelect">Active Project:</label>
+                <div class="project-selector-wrapper">
+                    <select id="projectSelect" class="input-field">
+                        <option value="default">Default Project</option>
+                    </select>
+                    <button id="manageProjectsBtn" class="icon-btn" title="Manage Projects">⚙️</button>
                 </div>
             </div>
-            
-            <div class="input-area">
-                <textarea id="promptInput" class="input-field" placeholder="Describe the feature to test... (e.g. 'Login page with 2FA')" rows="1"></textarea>
-                <button id="sendBtn" class="send-btn">Generate</button>
+
+            <div class="sidebar-info" id="projectDetails">
+                <p><strong>Status:</strong> Local AI Ready</p>
+                <p><strong>Rules:</strong> Anti-Hallucination Active</p>
+            </div>
+
+            <div class="upload-section">
+                <label for="fileUpload" class="file-label">
+                    <span>📎 Attach Context (PDF, Image, Docs)</span>
+                    <input type="file" id="fileUpload" hidden multiple accept=".pdf,.doc,.docx,.txt,image/*">
+                </label>
+                <div id="fileList" class="file-list"></div>
+            </div>
+        </aside>
+
+        <main class="workspace">
+            <header class="workspace-header">
+                <h1>Test Case Generator <span class="badge badge-normal">Local LLM</span></h1>
+                <div class="header-actions">
+                    <button id="dedupeBtn" class="btn-small secondary" title="Check for duplicates">🧩
+                        Deduplicate</button>
+                    <div class="status-pill"><span class="pulse"></span> AI Engine Online</div>
+                </div>
+            </header>
+
+            <div class="activity-feed" id="activityFeed" style="display: none;">
+                <!-- Live AI steps will appear here -->
+            </div>
+
+            <div class="results-container" id="messages">
+                <div class="empty-state">
+                    <div class="empty-icon">📂</div>
+                    <h2>Start Generating</h2>
+                    <p>Paste a Jira task or feature description below to generate professional test cases.</p>
+                </div>
+            </div>
+
+            <div class="input-container">
+                <div class="input-wrapper">
+                    <textarea id="promptInput" class="main-input"
+                        placeholder="Type requirement here... (e.g., PIM-1234: Bulk product delete)"
+                        rows="2"></textarea>
+                    <div class="input-actions">
+                        <button id="exportCsvBtn" class="btn-secondary" style="display: none;">📊 Export Excel</button>
+                        <button id="sendBtn" class="btn-primary">Generate Test Cases</button>
+                    </div>
+                </div>
             </div>
         </main>
+
+        <aside class="sidebar refiner-sidebar">
+            <div class="sidebar-header">
+                <h3>🛠️ Refinement</h3>
+                <button id="rightCollapseBtn" class="collapse-btn" title="Toggle Sidebar">▶</button>
+            </div>
+            <div class="refiner-content">
+                <p class="hint-text">Adjust generated cases using natural language.</p>
+                <div class="refiner-chat" id="refinerChat">
+                    <!-- Refinement history -->
+                </div>
+                <div class="refiner-input-area">
+                    <textarea id="refinerInput" placeholder="e.g., Add security cases..." class="input-field"
+                        disabled></textarea>
+                    <button id="refineBtn" class="btn-small" disabled>Refine</button>
+                </div>
+            </div>
+        </aside>
+    </div>
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <header class="modal-header">
+                <h2>Manage Projects</h2>
+                <button id="closeModal" class="close-btn">&times;</button>
+            </header>
+            <div class="modal-body">
+                <div class="project-form">
+                    <input type="text" id="projName" placeholder="Project Name" class="input-field">
+                    <textarea id="projDesc" placeholder="Project Description (Context)" class="input-field"
+                        rows="2"></textarea>
+                    <textarea id="projRules" placeholder="Isolated Rules" class="input-field" rows="2"></textarea>
+                    <button id="saveProjectBtn" class="btn-primary">Save Project</button>
+                </div>
+                <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 20px 0;">
+                <div id="projectTableList" class="project-list-table">
+                    <!-- Projects will be listed here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dedupeModal" class="modal">
+        <div class="modal-content large">
+            <header class="modal-header">
+                <h2>Test Deduplication & Comparison</h2>
+                <button id="closeDedupeModal" class="close-btn">&times;</button>
+            </header>
+            <div class="modal-body">
+                <div id="dedupeSummary" class="hint-text mb-20">AI is analyzing similarity between test cases...</div>
+                <div id="duplicateList" class="duplicate-comparison-container">
+                    <!-- Pairwise comparisons will appear here -->
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="app.js"></script>
 </body>
+
 </html>

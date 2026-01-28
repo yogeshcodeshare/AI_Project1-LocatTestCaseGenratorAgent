@@ -5,17 +5,15 @@
 ### TestCase
 ```json
 {
-  "id": "string (unique identifier, e.g., TC-001)",
-  "title": "string (concise summary of the test)",
-  "description": "string (purpose of the test)",
-  "preconditions": "string (setup required before testing)",
-  "steps": [
-    "string (step 1)",
-    "string (step 2)",
-    "..."
-  ],
-  "expected_result": "string (what should happen)",
-  "priority": "string (critical | high | medium | low)"
+  "sr_no": "string (sequential number)",
+  "id": "string (Jira ID, e.g., PIM-001)",
+  "title": "string (starts with Jira ID and Verify/Validate)",
+  "test_scenario": "string (broad category of testing)",
+  "description": "string (detailed point-wise explanation)",
+  "priority": "string (Blocker | Highest | High | Normal | Low)",
+  "steps": ["string (step 1)", "string (step 2)"],
+  "test_data": "string (input values for the test)",
+  "expected_result": "string (detailed success criteria)"
 }
 ```
 
@@ -30,8 +28,16 @@
 
 ## Behavioral Rules
 1.  **Strict JSON**: The system must enforce valid JSON output from Ollama using `format='json'`.
-2.  **No Hallucinations**: If input is vague, ask for clarification (in the UI) rather than guessing logic.
-3.  **Template-Based**: The prompt sent to Ollama must use the defined "Template" (to be provided by user) to ensure consistency.
+2.  **Anti-Hallucination**: Follow the strict rules defined in `QA Rule Checklist/Anti_Hallucination_Rules.md`.
+    - DO NOT invent features or APIs.
+    - If information is missing, respond with "Insufficient information to determine."
+    - Label inferred details as "Inference (low confidence)".
+3.  **QA Verification**: All generated test cases must be verifiable against the `QA Rule Checklist/LLM_QA_Verification_Checklist.md`.
+4.  **Template-Based**: The prompt sent to Ollama must use the defined "Template" (to be provided by user) to ensure consistency.
+
+## QA & Verification Reference
+- **Anti-Hallucination Standards**: [See Rules](./QA%20Rule%20Checklist/Anti_Hallucination_Rules.md)
+- **Verification Checklist**: [See Checklist](./QA%20Rule%20Checklist/LLM_QA_Verification_Checklist.md)
 
 ## Maintenance Log
 | Date | Event | Action | Status |
@@ -42,5 +48,7 @@
 | 2026-01-26 | Frontend Implementation | Built Chat UI (Dark Mode) | ✅ Complete |
 | 2026-01-26 | Integration Test | Verified e2e flow (Login w/ 2FA) | ✅ Complete |
 | 2026-01-26 | Deployment | Pushed to GitHub | ✅ Complete |
+| 2026-01-28 | QA Alignment | Integrated Anti-Hallucination & QA Checklists | ✅ Complete |
+| 2026-01-28 | Jira Integration | PIM/Jira Table Format & Excel Export | ✅ Complete |
 
 

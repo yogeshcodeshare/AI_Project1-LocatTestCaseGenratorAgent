@@ -9,8 +9,9 @@ A privacy-first, AI-powered tool that generates detailed software test cases fro
 ## ✨ Features
 
 -   **🔒 Privacy First**: Runs 100% locally using Ollama. No API keys, no data leaves your machine.
+-   **🛡️ Anti-Hallucination Rules**: Integrated strict verification logic to ensure test cases are grounded in facts.
 -   **🧠 Self-Healing Logic**: Uses robust JSON parsing and Pydantic validation to ensure the LLM returns structured data every time.
--   **🎨 Premium UI**: A clean, "Glassmorphism" inspired dark mode interface for seamless interaction.
+-   **🎨 Premium UI**: A clean, "Glassmorphism" inspired dark mode interface with real-time verification status.
 -   **⚡ Fast & Lightweight**: Backend powered by FastAPI, Frontend is pure HTML/CSS/JS (no heavy npm build steps).
 
 ## 🏗️ Architecture
@@ -53,14 +54,21 @@ This project follows the **BLAST Protocol** and **A.N.T. 3-Layer Architecture**:
 
 ## 🏃‍♂️ Usage
 
-### 1. Start the Backend
+### Quick Start (Recommended)
+You can start both the backend and frontend with a single command:
+```bash
+./start.sh
+```
+
+### Manual Start
+#### 1. Start the Backend
 The backend runs on port `8000`.
 ```bash
 ./venv/bin/uvicorn backend.server:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-### 2. Start the Frontend
-You can serve the frontend with any static file server. Python's built-in one works great:
+#### 2. Start the Frontend
+Serve the frontend with any static file server:
 ```bash
 cd frontend
 python3 -m http.server 8080
@@ -68,9 +76,9 @@ python3 -m http.server 8080
 
 ### 3. Generate Test Cases
 -   Open your browser to `http://localhost:8080`.
--   Type a feature description (e.g., *"Login page with Google OAuth and 2FA"*).
+-   Type a feature description.
 -   Click **Generate**.
--   Watch the AI craft detailed test cases in seconds!
+-   The AI will now show **Verified Facts** and **Missing Information** alongside your test cases!
 
 ## 📂 Project Structure
 
